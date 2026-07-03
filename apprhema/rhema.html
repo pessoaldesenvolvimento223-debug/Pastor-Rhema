@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pastor Rhema — Workspace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f4f6f9;
+            --surface-dark: #122a4f;
+            --surface-light: #ffffff;
+            --verse-bg: linear-gradient(135deg, #fffbf2 0%, #fbf3e0 100%);
+            --gold: #b59453;
+            --gold-soft: rgba(181, 148, 83, 0.1);
+            --green: #00b050;
+            --green-soft: rgba(0, 176, 80, 0.1);
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --text-white: #ffffff;
+            --line: rgba(148, 163, 184, 0.15);
+            --radius-lg: 18px;
+            --radius-md: 12px;
+            --font-display: 'Fraunces', serif;
+            --font-body: 'Source Sans 3', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            padding-bottom: 110px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* CONTAINER SIMULADOR MOBILE CONFORME IMAGE_056D48.PNG */
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            min-height: 100vh;
+            background: var(--bg);
+            position: relative;
+            padding: 0 16px;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .r1 { animation-delay: 0.05s; }
+        .r2 { animation-delay: 0.1s; }
+        .r3 { animation-delay: 0.15s; }
+
+        /* CONTROLE DE EXIBIÇÃO DAS ABAS COM MOTION SUAVE */
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .tab-content.active-tab {
+            display: block;
+            animation: smoothTabEntry 0.4s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+        }
+
+        @keyframes smoothTabEntry {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* TOP BAR */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 4px 12px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-mark {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            background: var(--surface-light);
+            border: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .brand-mark span {
+            font-family: var(--font-display);
+            font-weight: 700;
+            color: var(--surface-dark);
+            font-size: 16px;
+        }
+
+        .brand h1 {
+            font-size: 16px;
+            margin: 0;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .action-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--surface-light);
+            border: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .badge-new {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: #ef4444;
+            color: white;
+            font-size: 8px;
+            font-weight: 700;
+            padding: 2px 5px;
+            border-radius: 10px;
+            text-transform: uppercase;
+        }
+
+        .avatar-pfp {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #3b82f6;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        /* CARD DE LEITURA (ESTILO TOP CARD) */
+        .hero {
+            background: var(--verse-bg);
+            border: 1px solid rgba(181, 148, 83, 0.2);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-top: 8px;
+            box-shadow: 0 4px 20px rgba(181, 148, 83, 0.06);
+            position: relative;
+        }
+
+        .hero-eyebrow {
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        /* CONTAINER COM MOTION PARA TRANSIÇÃO DE ASSUNTOS */
+        #heroContent {
+            transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .verse-text {
+            font-family: var(--font-display);
+            font-size: 17px;
+            line-height: 1.5;
+            margin: 0 0 8px;
+            color: var(--surface-dark);
+        }
+
+        .verse-ref {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .verse-note {
+            color: #5c6475;
+            font-size: 13px;
+            line-height: 1.5;
+            border-top: 1px dashed rgba(181, 148, 83, 0.2);
+            padding-top: 12px;
+            margin-bottom: 14px;
+        }
+
+        .share-btn-mock {
+            background: var(--surface-dark);
+            color: var(--text-white);
+            border: none;
+            width: 100%;
+            padding: 10px;
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        /* CATEGORIAS HORIZONTAIS NATIVAS */
+        .cat-container {
+            margin: 16px -16px 0;
+            padding: 4px 16px;
+            overflow-x: auto;
+            display: flex;
+            gap: 8px;
+            scroll-behavior: smooth;
+        }
+
+        .cat-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cat-btn {
+            flex: 0 0 auto;
+            background: var(--surface-light);
+            border: 1px solid var(--line);
+            color: var(--text-muted);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .cat-btn:active {
+            transform: scale(0.96);
+        }
+
+        .cat-btn.active {
+            background: var(--surface-dark);
+            color: var(--text-white);
+            border-color: var(--surface-dark);
+        }
+
+        /* MAIN APP INTERACTION CARD (ESTILO BLUE BOX PROGRESS) */
+        .study {
+            background: var(--surface-dark);
+            border-radius: var(--radius-lg);
+            margin-top: 16px;
+            padding: 20px;
+            color: var(--text-white);
+            box-shadow: 0 8px 24px rgba(18, 42, 79, 0.15);
+        }
+
+        .study-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 14px;
+            margin-bottom: 16px;
+        }
+
+        .study-head h2 {
+            font-family: var(--font-display);
+            font-size: 18px;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .study-head p {
+            margin: 4px 0 0;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .summary-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-white);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* CHAT INTERNO */
+        .chat-box {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            height: 240px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .chat-box::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .chat-box::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+        }
+
+        .msg {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: var(--radius-md);
+            font-size: 13.5px;
+            line-height: 1.45;
+        }
+
+        .msg.bot {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-white);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .msg.user {
+            background: var(--green);
+            color: var(--text-white);
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .msg .who {
+            display: block;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gold);
+            margin-bottom: 2px;
+            font-weight: 700;
+        }
+
+        /* INPUT AREA */
+        .chat-input {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-white);
+            padding: 10px 14px;
+            border-radius: var(--radius-md);
+            font-size: 13.5px;
+            outline: none;
+        }
+
+        .chat-input input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .chat-input button {
+            background: var(--green);
+            color: var(--text-white);
+            border: none;
+            padding: 0 16px;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 13.5px;
+            cursor: pointer;
+        }
+
+        /* RESUMOS ANOTAÇÕES */
+        .notes {
+            margin-top: 20px;
+        }
+
+        .notes h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0 0 4px;
+        }
+
+        .notes p.hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin: 0 0 12px;
+        }
+
+        .note-card {
+            background: var(--surface-light);
+            border: 1px solid var(--line);
+            border-left: 4px solid var(--green);
+            border-radius: var(--radius-md);
+            padding: 14px;
+            margin-bottom: 10px;
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--text-main);
+        }
+
+        .note-card .note-date {
+            color: var(--text-muted);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .empty-note {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.01);
+            border: 1px dashed var(--line);
+            border-radius: var(--radius-md);
+        }
+
+        /* ESTILOS DA ABA: BIBLIOTECA */
+        .search-container {
+            background: var(--surface-light);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 12px 0 20px;
+        }
+
+        .search-container input {
+            border: none;
+            outline: none;
+            font-size: 14px;
+            width: 100%;
+            color: var(--text-main);
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--surface-dark);
+            margin: 20px 4px 10px;
+        }
+
+        .book-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .book-card {
+            background: var(--surface-light);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            padding: 14px;
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .book-cover {
+            width: 50px;
+            height: 70px;
+            background: var(--surface-dark);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0 0 2px 0;
+        }
+
+        .book-author {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin: 0 0 8px 0;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 5px;
+            background: var(--bg);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--gold);
+        }
+
+        /* ESTILOS DA ABA: ESTUDOS */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .metric-card {
+            background: var(--surface-light);
+            border: 1px solid var(--line);
+            padding: 16px;
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .metric-val {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--surface-dark);
+            margin-bottom: 2px;
+        }
+
+        .metric-lbl {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .track-card {
+            background: var(--surface-light);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .track-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .track-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .track-status {
+            font-size: 11px;
+            background: var(--green-soft);
+            color: var(--green);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        /* ESTILOS DA ABA: PERFIL */
+        .profile-header {
+            background: var(--surface-dark);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            color: var(--text-white);
+            text-align: center;
+            margin-top: 12px;
+            box-shadow: 0 4px 14px rgba(18, 42, 79, 0.1);
+        }
+
+        .profile-avatar {
+            width: 64px;
+            height: 64px;
+            background: var(--gold);
+            color: var(--text-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 auto 12px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-name {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 0 4px 0;
+        }
+
+        .profile-badge {
+            display: inline-block;
+            font-size: 11px;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-list {
+            margin-top: 20px;
+            background: var(--surface-light);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .menu-item {
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--line);
+            font-size: 14px;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* ABA FLUTUANTE DE NAVEGAÇÃO COMPLETA NATIVA (ESTILO BOTTOM PILL ATUALIZADO SEM O BOTÃO DO MEIO) */
+        .nav-pill {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 32px);
+            max-width: 440px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 30px;
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: var(--text-muted);
+            cursor: pointer;
+            flex: 1;
+            text-decoration: none;
+            transition: color 0.25s ease;
+        }
+
+        .nav-item.active {
+            color: var(--surface-dark);
+        }
+
+        .nav-item svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-item:active svg {
+            transform: scale(0.9);
+        }
+
+        .nav-item span {
+            font-size: 10px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <header class="reveal">
+            <div class="brand">
+                <div class="brand-mark"><span>R</span></div>
+                <div>
+                    <h1>Pastor Rhema</h1>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="action-icon">
+                    <span class="badge-new">New</span>
+                    <svg width="16" height="16" fill="var(--text-muted)" viewBox="0 0 16 16">
+                        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
+                    </svg>
+                </div>
+                <div class="avatar-pfp">A</div>
+            </div>
+        </header>
+
+        <main>
+            <div id="tab-home" class="tab-content active-tab">
+                <section class="hero">
+                    <div class="hero-eyebrow">Leitura Recomendada <span>Hoje</span></div>
+                    <div id="heroContent">
+                        <p class="verse-text" id="verseText">Entrega o teu caminho ao Senhor; confia nele, e o mais Ele fará.</p>
+                        <div class="verse-ref" id="verseRef">Salmos 37:5</div>
+                        <p class="verse-note" id="verseNote">Hoje o convite é para soltar das próprias mãos aquilo que você vem tentando resolver sozinho. Separe um momento de foco absoluto agora.</p>
+                    </div>
+                    <button class="share-btn-mock">
+                        <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z" />
+                        </svg>
+                        Compartilhar Diretriz
+                    </button>
+                </section>
+
+                <div class="cat-container" id="catStrip">
+                    <button class="cat-btn active" data-cat="prosperidade">💰 Prosperidade</button>
+                    <button class="cat-btn" data-cat="familia">🏠 Família</button>
+                    <button class="cat-btn" data-cat="fe">🙏 Fé</button>
+                    <button class="cat-btn" data-cat="vigiar">🛡️ Vigilância</button>
+                    <button class="cat-btn" data-cat="oracao">🕯️ Oração</button>
+                </div>
+
+                <section class="study">
+                    <div class="study-head">
+                        <div>
+                            <h2>Mapeamento de Contexto</h2>
+                            <p>Desenvolva e aplique os tópicos do dia</p>
+                        </div>
+                        <button class="summary-btn" id="summaryBtn">✦ Compilar</button>
+                    </div>
+                    <div class="chat-box" id="chatBox">
+                        <div class="msg bot"><span class="who">Pastor Rhema</span>Saudações. Analisando a diretriz ativa. Qual aspect prático dessa transição de controle você deseja estruturar e focar agora?</div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="chatInput" placeholder="Escreva a resposta ou ponto de ação...">
+                        <button id="sendBtn">Enviar</button>
+                    </div>
+                </section>
+
+                <section class="notes">
+                    <h3>Resumos e Anotações</h3>
+                    <p class="hint">Suas conclusões consolidadas da sessão</p>
+                    <div id="notesList">
+                        <p class="empty-note">Nenhum sumário estruturado nesta sessão. Use o botão "Compilar" acima para documentar suas conclusões.</p>
+                    </div>
+                </section>
+            </div>
+
+            <div id="tab-biblioteca" class="tab-content">
+                <div class="search-container">
+                    <svg width="16" height="16" fill="var(--text-muted)" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg>
+                    <input type="text" placeholder="Buscar livros, devocionais ou passagens...">
+                </div>
+
+                <div class="section-title">Lendo Agora</div>
+                <div class="book-card">
+                    <div class="book-cover">📖</div>
+                    <div class="book-info">
+                        <div class="book-title">Maturidade de Gestão e Princípios</div>
+                        <div class="book-author">Estudo Temático Integrado</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 68%;"></div>
+                        </div>
+                    </div>
+                    <span style="font-size: 11px; font-weight: 700; color: var(--gold)">68%</span>
+                </div>
+
+                <div class="section-title">Acervo Disponível</div>
+                <div class="book-list">
+                    <div class="book-card">
+                        <div class="book-cover">👑</div>
+                        <div class="book-info">
+                            <div class="book-title">Provérbios: Sabedoria de Reis</div>
+                            <div class="book-author">Análise Prática de Ativos e Decisões</div>
+                        </div>
+                        <svg width="16" height="16" fill="var(--text-muted)" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM11.293 8.707a1 1 0 0 0 0-1.414L8.707 4.707a1 1 0 1 0-1.414 1.414L8.586 7H4.5a1 1 0 0 0 0 2h4.086l-1.293 1.293a1 1 0 1 0 1.414 1.414l2.586-2.586z" />
+                        </svg>
+                    </div>
+                    <div class="book-card">
+                        <div class="book-cover">🛡️</div>
+                        <div class="book-info">
+                            <div class="book-title">A Armadura Oculta</div>
+                            <div class="book-author">Vigilância e Blindagem de Negócios</div>
+                        </div>
+                        <svg width="16" height="16" fill="var(--text-muted)" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM11.293 8.707a1 1 0 0 0 0-1.414L8.707 4.707a1 1 0 1 0-1.414 1.414L8.586 7H4.5a1 1 0 0 0 0 2h4.086l-1.293 1.293a1 1 0 1 0 1.414 1.414l2.586-2.586z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-estudos" class="tab-content">
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-val">14</div>
+                        <div class="metric-lbl">Sessões Concluídas</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-val">5</div>
+                        <div class="metric-lbl">Temas Mapeados</div>
+                    </div>
+                </div>
+
+                <div class="section-title">Trilhas em Andamento</div>
+                <div class="track-card">
+                    <div class="track-header">
+                        <div class="track-title">Trilha da Prosperidade Consistente</div>
+                        <span class="track-status">Ativo</span>
+                    </div>
+                    <p style="font-size: 13px; color: var(--text-muted); margin: 0 0 12px 0;">Estudo focado na centralização de fluxo de caixa, governança estruturada e dízimo.</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 40%;"></div>
+                    </div>
+                </div>
+
+                <div class="track-card">
+                    <div class="track-header">
+                        <div class="track-title">Mapeamento Antifragilidade</div>
+                        <span class="track-status">Ativo</span>
+                    </div>
+                    <p style="font-size: 13px; color: var(--text-muted); margin: 0 0 12px 0;">Análise baseada em vigilância contínua e contenção de danos operacionais.</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 85%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABA 4: PERFIL (ATUALIZADA FASE 2) -->
+            <div id="tab-perfil" class="tab-content">
+                <div class="profile-header">
+                    <div class="profile-avatar">A</div>
+                    <div class="profile-name">Workspace Rhema</div>
+                    <div class="profile-badge">Acesso Premium Ativo</div>
+                </div>
+
+                <div class="menu-list">
+                    <!-- PASSO 2.1 e 2.2: Gatilho direto via e-mail corporativo -->
+                    <div class="menu-item" onclick="window.location.href='mailto:olinstonzaria@gmail.com?subject=Feedback%20-%20Pastor%20Rhema%20Workspace'">
+                        <div class="menu-left">
+                            <span>📩</span>
+                            <span style="font-weight: 600;">Enviar Feedback / Reportar Erro</span>
+                        </div>
+                        <span style="color: var(--gold); font-size: 14px; font-weight: 700;">›</span>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-left">
+                            <span>⚙️</span>
+                            <span>Configurações do Sistema</span>
+                        </div>
+                        <span style="color: var(--text-muted); font-size: 12px;">›</span>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-left">
+                            <span>🔒</span>
+                            <span>Segurança e Contingência</span>
+                        </div>
+                        <span style="color: var(--text-muted); font-size: 12px;">›</span>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-left">
+                            <span>💳</span>
+                            <span>Dados de Assinatura</span>
+                        </div>
+                        <span style="color: var(--text-muted); font-size: 12px;">Premium</span>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-left">
+                            <span>🔔</span>
+                            <span>Notificações Diárias</span>
+                        </div>
+                        <span style="color: var(--green); font-size: 12px; font-weight: 700;">Ativas</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <nav class="nav-pill" id="mainNav">
+            <div class="nav-item active" data-tab="home">
+                <svg viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L8.707 1.5z" />
+                </svg>
+                <span>Home</span>
+            </div>
+            <div class="nav-item" data-tab="biblioteca">
+                <svg viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.653-.689-1.782-.886-3.112-.752-1.234.124-2.503.523-3.388.893V2.828zm7.5 1.854c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.885-.37-2.154-.769-3.388-.893-1.33-.134-2.458.063-3.112.752V4.682z" />
+                </svg>
+                <span>Biblioteca</span>
+            </div>
+            <div class="nav-item" data-tab="estudos">
+                <svg viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
+                </svg>
+                <span>Estudos</span>
+            </div>
+            <div class="nav-item" data-tab="perfil">
+                <svg viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                </svg>
+                <span>Perfil</span>
+            </div>
+        </nav>
+
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentUser = urlParams.get('user') || 'Pastor';
+
+        // Lógica de Navegação entre Abas
+        const navItems = document.querySelectorAll('#mainNav .nav-item');
+        const tabs = document.querySelectorAll('.tab-content');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const targetTab = item.getAttribute('data-tab');
+                if (!targetTab) return;
+
+                navItems.forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+
+                tabs.forEach(tab => {
+                    tab.classList.remove('active-tab');
+                    if (tab.id === `tab-${targetTab}`) {
+                        tab.classList.add('active-tab');
+                    }
+                });
+            });
+        });
+
+        // Configuração das Leituras Diárias (Aba Home)
+        const readings = {
+            prosperidade: {
+                tag: "💰 Prosperidade", ref: "Malaquias 3:10",
+                text: "Trazei todos os dízimos à casa do tesouro... e provai-me nisto, diz o Senhor dos Exércitos, se eu não vos abrir as janelas do céu.",
+                note: "Prosperidade bíblica começa na fidelidade, não na ansiedade. Onde você tem sido fiel com pouco?"
+            },
+            familia: {
+                tag: "🏠 Família", ref: "Josué 24:15",
+                text: "Eu e a minha casa serviremos ao Senhor.",
+                note: "Sua casa segue a direção que você dá a ela. Que decisão você pode tomar hoje para guiar sua família?"
+            },
+            fe: {
+                tag: "🙏 Fé", ref: "Salmos 37:5",
+                text: "Entrega o teu caminho ao Senhor; confia nele, e o mais Ele fará.",
+                note: "Hoje o convite é para soltar das próprias mãos aquilo que você vem tentando resolver sozinho."
+            },
+            vigiar: {
+                tag: "🛡️ Vigilância", ref: "1 Pedro 5:8",
+                text: "Sede sóbrios, vigiai; o diabo, vosso adversário, anda em derredor, bramando como leão, buscando a quem possa tragar.",
+                note: "Vigilância não é medo, é atenção. Que área da sua vida está sem guarda hoje?"
+            },
+            oracao: {
+                tag: "🕯️ Oração", ref: "1 Tessalonicenses 5:17",
+                text: "Orai sem cessar.",
+                note: "Oração não é um evento, é uma postura. Que tal transformar o próximo momento de espera em oração?"
+            }
+        };
+
+        const catStrip = document.getElementById('catStrip');
+        const heroContent = document.getElementById('heroContent');
+
+        // PASSO 1.3: Função central de renderização do assunto ativo
+        function setCategory(catKey) {
+            document.querySelectorAll('.cat-btn').forEach(b => {
+                if (b.dataset.cat === catKey) b.classList.add('active');
+                else b.classList.remove('active');
+            });
+            const r = readings[catKey];
+            document.getElementById('verseText').textContent = r.text;
+            document.getElementById('verseRef').textContent = r.ref;
+            document.getElementById('verseNote').textContent = r.note;
+        }
+
+        catStrip.addEventListener('click', e => {
+            const btn = e.target.closest('.cat-btn');
+            if (!btn || btn.classList.contains('active')) return;
+
+            const catKey = btn.dataset.cat;
+            localStorage.setItem('rhema_selected_cat', catKey);
+
+            heroContent.style.opacity = '0';
+            heroContent.style.transform = 'translateY(8px)';
+
+            setTimeout(() => {
+                setCategory(catKey);
+                heroContent.style.opacity = '1';
+                heroContent.style.transform = 'translateY(0)';
+            }, 200);
+        });
+
+        // Chat Interativo (Aba Home)
+        const chatBox = document.getElementById('chatBox');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+
+        let conversation = JSON.parse(localStorage.getItem(`rhema_chat_${currentUser}`)) || [];
+
+
+
+        function addMsg(text, who) {
+            const div = document.createElement('div');
+            div.className = 'msg ' + (who === 'user' ? 'user' : 'bot');
+            div.innerHTML = who === 'user' ? text : '<span class="who">Pastor Rhema</span>' + text;
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function renderChatHistory() {
+            conversation.forEach(c => {
+                addMsg(c.text, c.role);
+            });
+        }
+
+        function sendMessage() {
+            const val = chatInput.value.trim();
+            if (!val) return;
+            addMsg(val, 'user');
+
+            conversation.push({ role: 'user', text: val });
+            localStorage.setItem(`rhema_chat_${currentUser}`, JSON.stringify(conversation));
+
+            chatInput.value = '';
+
+            // Exibe indicador de carregamento
+            const typing = document.createElement('div');
+            typing.className = 'msg bot reveal';
+            typing.style.opacity = '0.6';
+            typing.innerHTML = '<span class="who">Pastor Rhema</span>Thinking...';
+            chatBox.appendChild(typing);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Mapeia o histórico local para o formato exigido pela API (role e content)
+            const formattedMessages = conversation.map(msg => ({
+                role: msg.role,
+                content: msg.text
+            }));
+
+            // Executa a chamada real para a Netlify Function local/produção
+            fetch('/.netlify/functions/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ messages: formattedMessages })
+            })
+            .then(res => {
+                if (!res.ok) throw new Error('Network response error');
+                return res.json();
+            })
+            .then(data => {
+                typing.remove();
+                const reply = data.reply;
+                addMsg(reply, 'bot');
+
+                conversation.push({ role: 'bot', text: reply });
+                localStorage.setItem(`rhema_chat_${currentUser}`, JSON.stringify(conversation));
+            })
+            .catch(err => {
+                typing.remove();
+                addMsg("Connection error. Please try again in a few moments.", 'bot');
+                console.error(err);
+            });
+        }
+        sendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
+
+        // PASSO 1.2: Estruturação e Compilação de Anotações com Persistência
+        let notesData = JSON.parse(localStorage.getItem(`rhema_notes_${currentUser}`)) || [];
+
+        function renderNotes() {
+            const list = document.getElementById('notesList');
+            list.innerHTML = '';
+
+            if (notesData.length === 0) {
+                list.innerHTML = '<p class="empty-note">Nenhum sumário estruturado nesta sessão. Use o botão "Compilar" acima para documentar suas conclusões.</p>';
+                return;
+            }
+
+            notesData.forEach(note => {
+                const card = document.createElement('div');
+                card.className = 'note-card';
+                card.innerHTML = `<span class="note-date">${note.date} · ${note.category}</span>
+                <strong>Diretriz de Estudo:</strong> Aplicação focada em <em>${note.topic.slice(0, 60)}</em>.<br>
+                <strong>Conclusão Mapeada:</strong> ${note.conclusion}`;
+                list.appendChild(card);
+            });
+        }
+
+        document.getElementById('summaryBtn').addEventListener('click', () => {
+            const activeCat = document.querySelector('.cat-btn.active').textContent.trim();
+            const userLines = conversation.filter(c => c.role === 'user').map(c => c.text);
+            const topic = userLines.length ? userLines[userLines.length - 1] : "Alinhamento e execução estratégica de princípios";
+
+            const now = new Date();
+            const timestamp = `${now.toLocaleDateString('pt-BR')} às ${now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`;
+
+            const newNote = {
+                date: timestamp,
+                category: activeCat,
+                topic: topic,
+                conclusion: "O processo exige ação assertiva desvinculada de reações ansiosas, garantindo consistência no gerenciamento pessoal."
+            };
+
+            notesData.unshift(newNote);
+            localStorage.setItem(`rhema_notes_${currentUser}`, JSON.stringify(notesData));
+            renderNotes();
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const pfpElement = document.querySelector('.avatar-pfp');
+            if (pfpElement) pfpElement.textContent = currentUser.charAt(0).toUpperCase();
+
+            const savedCat = localStorage.getItem('rhema_selected_cat');
+            if (savedCat && readings[savedCat]) {
+                setCategory(savedCat);
+            }
+            renderChatHistory();
+            renderNotes();
+        });
+    </script>
+
+</body>
+
+</html>

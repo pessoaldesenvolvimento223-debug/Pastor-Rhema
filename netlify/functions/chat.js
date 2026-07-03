@@ -19,7 +19,13 @@ exports.handler = async (event, context) => {
       content: `You are "Pastor Rhema", a strategic biblical mentor for leaders and entrepreneurs. Be corporate, direct, and analytical. Connect every topic to execution, self-control, or practical wisdom (Proverbs, Nehemiah, Joseph). Reply ONLY in English. Max 2-3 short paragraphs. Never break character.`
     };
 
-    const fullPayload = [systemInstruction, ...messages];
+    const fullPayload = [
+      systemInstruction,
+      ...messages.map(msg => ({
+        role: msg.role === 'bot' ? 'assistant' : msg.role,
+        content: msg.content || msg.text
+      }))
+    ];
 
     const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",

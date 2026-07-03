@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Access Pastor Rhema</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #090d16;
+            --surface: rgba(30, 41, 59, 0.7);
+            --surface-dark: #122a4f;
+            --gold: #b59453;
+            --green: #00b050;
+            --green-dark: #008a3e;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --line: rgba(255, 255, 255, 0.08);
+            --radius-lg: 24px;
+            --radius-md: 14px;
+            --font-display: 'Fraunces', serif;
+            --font-body: 'Source Sans 3', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(135deg, #070a13 0%, #0f172a 50%, #1e1b4b 100%);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Ambient Motion Background Orbs */
+        .bg-orb {
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.12;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .orb-1 {
+            background: var(--gold);
+            top: 15%;
+            left: 10%;
+            animation: floatOrb1 20s infinite alternate ease-in-out;
+        }
+
+        .orb-2 {
+            background: #3b82f6;
+            bottom: 15%;
+            right: 10%;
+            animation: floatOrb2 25s infinite alternate ease-in-out;
+        }
+
+        @keyframes floatOrb1 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(60px, 40px) scale(1.15); }
+        }
+
+        @keyframes floatOrb2 {
+            0% { transform: translate(0, 0) scale(1.15); }
+            100% { transform: translate(-60px, -40px) scale(0.9); }
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            background: var(--surface);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            padding: 40px 28px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            z-index: 2;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-wrap {
+            margin-bottom: 28px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            width: 64px;
+            height: 64px;
+            border-radius: var(--radius-md);
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .brand-mark {
+            width: 64px;
+            height: 64px;
+            border-radius: var(--radius-md);
+            background: var(--surface-dark);
+            border: 1px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(181, 148, 83, 0.15);
+        }
+
+        .brand-mark span {
+            font-family: var(--font-display);
+            font-weight: 700;
+            color: var(--gold);
+            font-size: 28px;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-top: 8px;
+        }
+
+        p {
+            font-size: 14.5px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            padding: 14px 16px;
+            border-radius: var(--radius-md);
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(181, 148, 83, 0.2);
+        }
+
+        input::placeholder {
+            color: var(--text-muted);
+            opacity: 0.6;
+        }
+
+        .btn-submit {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            background: linear-gradient(180deg, var(--green), var(--green-dark));
+            color: var(--text-main);
+            border: none;
+            padding: 14px;
+            border-radius: var(--radius-md);
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.25s ease;
+            box-shadow: 0 4px 14px rgba(0, 176, 80, 0.2);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 176, 80, 0.35);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Ambient Blur Background Elements -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <div class="login-container">
+        <div class="logo-wrap">
+            <!-- Try to load the logo image, fallback to CSS mark if it fails -->
+            <img class="logo-img" src="imagens/logo.png?v=2"
+                onerror="this.style.display='none'; document.getElementById('fallback-mark').style.display='flex';"
+                alt="Pastor Rhema Logo">
+            <div class="brand-mark" id="fallback-mark" style="display: none;">
+                <span>R</span>
+            </div>
+            <h1>Pastor Rhema</h1>
+            <p>Your strategic biblical mentor for leadership and execution</p>
+        </div>
+
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label for="userName">Name</label>
+                <input type="text" id="userName" placeholder="Enter your name..." required autocomplete="name">
+            </div>
+
+            <button type="submit" class="btn-submit">Access My Library</button>
+        </form>
+    </div>
+
+    <script>
+        // Load saved username if it exists in localStorage
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedUser = localStorage.getItem('rhema_saved_user');
+            if (savedUser) {
+                document.getElementById('userName').value = savedUser;
+            }
+        });
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const nameInput = document.getElementById('userName');
+            const userName = nameInput.value.trim();
+
+            if (userName) {
+                // Save username to localStorage
+                localStorage.setItem('rhema_saved_user', userName);
+
+                // Redirect to workspace passing name as relative path
+                window.location.href = 'apprhema/rhema.html?user=' + encodeURIComponent(userName);
+            }
+        }
+    </script>
+</body>
+
+</html>

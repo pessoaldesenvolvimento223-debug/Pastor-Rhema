@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <!-- Otimização de Viewport para Mobile (evita zoom indesejado em inputs) -->
+    <!-- Viewport Optimization for Mobile -->
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 
-    <!-- Configurações para salvar na tela inicial (iOS e Android) -->
+    <!-- Web App Manifest Meta for iOS & Android -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Pastor Rhema">
@@ -52,7 +52,7 @@
             justify-content: center;
         }
 
-        /* CONTAINER SIMULADOR MOBILE CONFORME IMAGE_056D48.PNG */
+        /* MOBILE SIMULATOR CONTAINER */
         .app-container {
             width: 100%;
             max-width: 480px;
@@ -91,7 +91,7 @@
             animation-delay: 0.15s;
         }
 
-        /* CONTROLE DE EXIBIÇÃO DAS ABAS COM MOTION SUAVE */
+        /* SMOOTH TAB TRANSITIONS */
         .tab-content {
             display: none;
             opacity: 0;
@@ -194,7 +194,7 @@
             font-size: 13px;
         }
 
-        /* CARD DE LEITURA (ESTILO TOP CARD) */
+        /* READING HERO CARD */
         .hero {
             background: var(--verse-bg);
             border: 1px solid rgba(181, 148, 83, 0.2);
@@ -216,7 +216,6 @@
             margin-bottom: 12px;
         }
 
-        /* CONTAINER COM MOTION PARA TRANSIÇÃO DE ASSUNTOS */
         #heroContent {
             transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
             opacity: 1;
@@ -263,7 +262,7 @@
             cursor: pointer;
         }
 
-        /* CATEGORIAS HORIZONTAIS NATIVAS */
+        /* HORIZONTAL CATEGORIES */
         .cat-container {
             margin: 16px -16px 0;
             padding: 4px 16px;
@@ -300,7 +299,7 @@
             border-color: var(--surface-dark);
         }
 
-        /* MAIN APP INTERACTION CARD (ESTILO BLUE BOX PROGRESS) */
+        /* BLUE BOX PROGRESS / CHAT INTERACTION CARD */
         .study {
             background: var(--surface-dark);
             border-radius: var(--radius-lg);
@@ -343,7 +342,7 @@
             cursor: pointer;
         }
 
-        /* CHAT INTERNO */
+        /* CHAT INTERACTIVE WINDOW */
         .chat-box {
             display: flex;
             flex-direction: column;
@@ -427,7 +426,7 @@
             cursor: pointer;
         }
 
-        /* RESUMOS ANOTAÇÕES */
+        /* SUMMARIES & NOTES */
         .notes {
             margin-top: 20px;
         }
@@ -477,7 +476,7 @@
             border-radius: var(--radius-md);
         }
 
-        /* ESTILOS DA ABA: BIBLIOTECA */
+        /* LIBRARY SECTION */
         .search-container {
             background: var(--surface-light);
             border: 1px solid var(--line);
@@ -518,6 +517,13 @@
             display: flex;
             gap: 14px;
             align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .book-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
         }
 
         .book-cover {
@@ -562,9 +568,10 @@
         .progress-bar {
             height: 100%;
             background: var(--gold);
+            transition: width 0.3s ease;
         }
 
-        /* ESTILOS DA ABA: ESTUDOS */
+        /* STUDIES VIEW */
         .metrics-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -625,7 +632,7 @@
             font-weight: 700;
         }
 
-        /* ESTILOS DA ABA: PERFIL */
+        /* PROFILE VIEW */
         .profile-header {
             background: var(--surface-dark);
             border-radius: var(--radius-lg);
@@ -698,7 +705,7 @@
             gap: 12px;
         }
 
-        /* ABA FLUTUANTE DE NAVEGAÇÃO COMPLETA NATIVA (ESTILO BOTTOM PILL ATUALIZADO SEM O BOTÃO DO MEIO) */
+        /* BOTTOM COMFORT NAVIGATION BAR */
         .nav-pill {
             position: fixed;
             bottom: 20px;
@@ -770,204 +777,166 @@
                             d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
                     </svg>
                 </div>
-                <div class="avatar-pfp">A</div>
+                <div class="avatar-pfp">P</div>
             </div>
         </header>
 
         <main>
+            <!-- HOME TAB -->
             <div id="tab-home" class="tab-content active-tab">
                 <section class="hero">
-                    <div class="hero-eyebrow">Leitura Recomendada <span>Hoje</span></div>
+                    <div class="hero-eyebrow" id="heroEyebrow">RECOMMENDED READING <span>TODAY</span></div>
                     <div id="heroContent">
-                        <p class="verse-text" id="verseText">Entrega o teu caminho ao Senhor; confia nele, e o mais Ele
-                            fará.</p>
-                        <div class="verse-ref" id="verseRef">Salmos 37:5</div>
-                        <p class="verse-note" id="verseNote">Hoje o convite é para soltar das próprias mãos aquilo que
-                            você vem tentando resolver sozinho. Separe um momento de foco absoluto agora.</p>
+                        <h2 id="chapterTitle" style="display: none; font-family: var(--font-display); font-size: 20px; color: var(--surface-dark); margin: 0 0 10px 0;"></h2>
+                        <p class="verse-text" id="verseText">Commit your way to the Lord; trust in him and he will do this.</p>
+                        <div class="verse-ref" id="verseRef">Psalms 37:5</div>
+                        <p class="verse-note" id="verseNote">Today's invitation is to release from your own hands what you have been trying to solve alone. Take a moment of absolute focus now.</p>
+                        
+                        <!-- Chapter Navigation UI (Visible only when reading a collection) -->
+                        <div id="chapterNav" style="display: none; border-top: 1px dashed rgba(181, 148, 83, 0.2); margin-top: 15px; padding-top: 15px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <button id="prevChapterBtn" class="summary-btn" style="background: var(--surface-dark); color: white;">‹ Previous</button>
+                                <span id="chapterProgressText" style="font-size: 12px; font-weight: 700; color: var(--gold);">Chapter 1 of 10</span>
+                                <button id="nextChapterBtn" class="summary-btn" style="background: var(--surface-dark); color: white;">Next ›</button>
+                            </div>
+                            <div class="progress-bar-container" style="height: 6px;">
+                                <div class="progress-bar" id="chapterProgressBar" style="width: 10%;"></div>
+                            </div>
+                        </div>
                     </div>
-                    <button class="share-btn-mock">
+                    <button class="share-btn-mock" id="shareBtn" style="margin-top: 15px;">
                         <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
                             <path
                                 d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z" />
                         </svg>
-                        Compartilhar Diretriz
+                        Share Guideline
                     </button>
                 </section>
 
                 <div class="cat-container" id="catStrip">
-                    <button class="cat-btn active" data-cat="prosperidade">💰 Prosperidade</button>
-                    <button class="cat-btn" data-cat="familia">🏠 Família</button>
-                    <button class="cat-btn" data-cat="fe">🙏 Fé</button>
-                    <button class="cat-btn" data-cat="vigiar">🛡️ Vigilância</button>
-                    <button class="cat-btn" data-cat="oracao">🕯️ Oração</button>
+                    <button class="cat-btn active" data-cat="prosperidade">💰 Prosperity</button>
+                    <button class="cat-btn" data-cat="familia">🏠 Family</button>
+                    <button class="cat-btn" data-cat="fe">🙏 Faith</button>
+                    <button class="cat-btn" data-cat="vigiar">🛡️ Vigilance</button>
+                    <button class="cat-btn" data-cat="oracao">🕯️ Prayer</button>
                 </div>
 
                 <section class="study">
                     <div class="study-head">
                         <div>
-                            <h2>Mapeamento de Contexto</h2>
-                            <p>Desenvolva e aplique os tópicos do dia</p>
+                            <h2>Context Mapping</h2>
+                            <p>Develop and apply today's topics</p>
                         </div>
-                        <button class="summary-btn" id="summaryBtn">✦ Compilar</button>
+                        <button class="summary-btn" id="summaryBtn">✦ Compile</button>
                     </div>
                     <div class="chat-box" id="chatBox">
-                        <div class="msg bot"><span class="who">Pastor Rhema</span>Saudações. Analisando a diretriz
-                            ativa. Qual aspect prático dessa transição de controle você deseja estruturar e focar agora?
-                        </div>
+                        <div class="msg bot"><span class="who">Pastor Rhema</span>Greetings. Analyzing the active guideline. What practical aspect of this wisdom do you want to structure and focus on now?</div>
                     </div>
                     <div class="chat-input">
-                        <input type="text" id="chatInput" placeholder="Escreva a resposta ou ponto de ação...">
-                        <button id="sendBtn">Enviar</button>
+                        <input type="text" id="chatInput" placeholder="Write your response or action point...">
+                        <button id="sendBtn">Send</button>
                     </div>
                 </section>
 
                 <section class="notes">
-                    <h3>Resumos e Anotações</h3>
-                    <p class="hint">Suas conclusões consolidadas da sessão</p>
+                    <h3>Summaries &amp; Notes</h3>
+                    <p class="hint">Your consolidated session conclusions</p>
                     <div id="notesList">
-                        <p class="empty-note">Nenhum sumário estruturado nesta sessão. Use o botão "Compilar" acima para
-                            documentar suas conclusões.</p>
+                        <p class="empty-note">No structured summaries in this session. Use the "Compile" button above to document your conclusions.</p>
                     </div>
                 </section>
             </div>
 
+            <!-- LIBRARY TAB -->
             <div id="tab-biblioteca" class="tab-content">
                 <div class="search-container">
                     <svg width="16" height="16" fill="var(--text-muted)" viewBox="0 0 16 16">
                         <path
                             d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                     </svg>
-                    <input type="text" placeholder="Buscar livros, devocionais ou passagens...">
+                    <input type="text" id="searchInput" placeholder="Search collections...">
                 </div>
 
-                <div class="section-title">Lendo Agora</div>
-                <div class="book-card">
-                    <div class="book-cover">📖</div>
-                    <div class="book-info">
-                        <div class="book-title">Maturidade de Gestão e Princípios</div>
-                        <div class="book-author">Estudo Temático Integrado</div>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" style="width: 68%;"></div>
-                        </div>
-                    </div>
-                    <span style="font-size: 11px; font-weight: 700; color: var(--gold)">68%</span>
+                <div class="section-title">Currently Reading</div>
+                <div id="currentlyReadingContainer">
+                    <!-- Dynamic active book card -->
                 </div>
 
-                <div class="section-title">Acervo Disponível</div>
-                <div class="book-list">
-                    <div class="book-card">
-                        <div class="book-cover">👑</div>
-                        <div class="book-info">
-                            <div class="book-title">Provérbios: Sabedoria de Reis</div>
-                            <div class="book-author">Análise Prática de Ativos e Decisões</div>
-                        </div>
-                        <svg width="16" height="16" fill="var(--text-muted)" viewBox="0 0 16 16">
-                            <path
-                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM11.293 8.707a1 1 0 0 0 0-1.414L8.707 4.707a1 1 0 1 0-1.414 1.414L8.586 7H4.5a1 1 0 0 0 0 2h4.086l-1.293 1.293a1 1 0 1 0 1.414 1.414l2.586-2.586z" />
-                        </svg>
-                    </div>
-                    <div class="book-card">
-                        <div class="book-cover">🛡️</div>
-                        <div class="book-info">
-                            <div class="book-title">A Armadura Oculta</div>
-                            <div class="book-author">Vigilância e Blindagem de Negócios</div>
-                        </div>
-                        <svg width="16" height="16" fill="var(--text-muted)" viewBox="0 0 16 16">
-                            <path
-                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM11.293 8.707a1 1 0 0 0 0-1.414L8.707 4.707a1 1 0 1 0-1.414 1.414L8.586 7H4.5a1 1 0 0 0 0 2h4.086l-1.293 1.293a1 1 0 1 0 1.414 1.414l2.586-2.586z" />
-                        </svg>
-                    </div>
+                <div class="section-title">Available Collections</div>
+                <div id="availableCollectionsList" class="book-list">
+                    <!-- Dynamic collection list -->
                 </div>
             </div>
 
+            <!-- STUDIES TAB -->
             <div id="tab-estudos" class="tab-content">
                 <div class="metrics-grid">
                     <div class="metric-card">
-                        <div class="metric-val">14</div>
-                        <div class="metric-lbl">Sessões Concluídas</div>
+                        <div class="metric-val" id="metricSessions">14</div>
+                        <div class="metric-lbl">Completed Sessions</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-val">5</div>
-                        <div class="metric-lbl">Temas Mapeados</div>
+                        <div class="metric-val" id="metricThemes">4</div>
+                        <div class="metric-lbl">Mapped Themes</div>
                     </div>
                 </div>
 
-                <div class="section-title">Trilhas em Andamento</div>
-                <div class="track-card">
-                    <div class="track-header">
-                        <div class="track-title">Trilha da Prosperidade Consistente</div>
-                        <span class="track-status">Ativo</span>
-                    </div>
-                    <p style="font-size: 13px; color: var(--text-muted); margin: 0 0 12px 0;">Estudo focado na
-                        centralização de fluxo de caixa, governança estruturada e dízimo.</p>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" style="width: 40%;"></div>
-                    </div>
-                </div>
-
-                <div class="track-card">
-                    <div class="track-header">
-                        <div class="track-title">Mapeamento Antifragilidade</div>
-                        <span class="track-status">Ativo</span>
-                    </div>
-                    <p style="font-size: 13px; color: var(--text-muted); margin: 0 0 12px 0;">Análise baseada em
-                        vigilância contínua e contenção de danos operacionais.</p>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" style="width: 85%;"></div>
-                    </div>
+                <div class="section-title">Active Collections &amp; Tracks</div>
+                <div id="tracksList">
+                    <!-- Dynamic progress tracks -->
                 </div>
             </div>
 
-            <!-- ABA 4: PERFIL (ATUALIZADA FASE 2) -->
+            <!-- PROFILE TAB -->
             <div id="tab-perfil" class="tab-content">
                 <div class="profile-header">
-                    <div class="profile-avatar">A</div>
+                    <div class="profile-avatar">P</div>
                     <div class="profile-name">Workspace Rhema</div>
-                    <div class="profile-badge">Acesso Premium Ativo</div>
+                    <div class="profile-badge">Premium Access Active</div>
                 </div>
 
                 <div class="menu-list">
-                    <!-- PASSO 2.1 e 2.2: Gatilho direto via e-mail corporativo -->
                     <div class="menu-item"
                         onclick="window.location.href='mailto:olinstonzaria@gmail.com?subject=Feedback%20-%20Pastor%20Rhema%20Workspace'">
                         <div class="menu-left">
                             <span>📩</span>
-                            <span style="font-weight: 600;">Enviar Feedback / Reportar Erro</span>
+                            <span style="font-weight: 600;">Send Feedback / Report Error</span>
                         </div>
                         <span style="color: var(--gold); font-size: 14px; font-weight: 700;">›</span>
                     </div>
                     <div class="menu-item">
                         <div class="menu-left">
                             <span>⚙️</span>
-                            <span>Configurações do Sistema</span>
+                            <span>System Settings</span>
                         </div>
                         <span style="color: var(--text-muted); font-size: 12px;">›</span>
                     </div>
                     <div class="menu-item">
                         <div class="menu-left">
                             <span>🔒</span>
-                            <span>Segurança e Contingência</span>
+                            <span>Security and Contingency</span>
                         </div>
                         <span style="color: var(--text-muted); font-size: 12px;">›</span>
                     </div>
                     <div class="menu-item">
                         <div class="menu-left">
                             <span>💳</span>
-                            <span>Dados de Assinatura</span>
+                            <span>Subscription Details</span>
                         </div>
                         <span style="color: var(--text-muted); font-size: 12px;">Premium</span>
                     </div>
                     <div class="menu-item">
                         <div class="menu-left">
                             <span>🔔</span>
-                            <span>Notificações Diárias</span>
+                            <span>Daily Notifications</span>
                         </div>
-                        <span style="color: var(--green); font-size: 12px; font-weight: 700;">Ativas</span>
+                        <span style="color: var(--green); font-size: 12px; font-weight: 700;">Active</span>
                     </div>
                 </div>
             </div>
         </main>
 
+        <!-- NAVIGATION TAB BAR -->
         <nav class="nav-pill" id="mainNav">
             <div class="nav-item active" data-tab="home">
                 <svg viewBox="0 0 16 16" fill="currentColor">
@@ -981,20 +950,20 @@
                     <path
                         d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.653-.689-1.782-.886-3.112-.752-1.234.124-2.503.523-3.388.893V2.828zm7.5 1.854c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.885-.37-2.154-.769-3.388-.893-1.33-.134-2.458.063-3.112.752V4.682z" />
                 </svg>
-                <span>Biblioteca</span>
+                <span>Library</span>
             </div>
             <div class="nav-item" data-tab="estudos">
                 <svg viewBox="0 0 16 16" fill="currentColor">
                     <path
                         d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
                 </svg>
-                <span>Estudos</span>
+                <span>Studies</span>
             </div>
             <div class="nav-item" data-tab="perfil">
                 <svg viewBox="0 0 16 16" fill="currentColor">
                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                 </svg>
-                <span>Perfil</span>
+                <span>Profile</span>
             </div>
         </nav>
 
@@ -1004,7 +973,283 @@
         const urlParams = new URLSearchParams(window.location.search);
         const currentUser = urlParams.get('user') || 'Pastor';
 
-        // Lógica de Navegação entre Abas
+        // 40 chapters total structure (4 collections of 10 chapters)
+        const collections = {
+            conscious_manager: {
+                id: "conscious_manager",
+                title: "The Conscious Manager",
+                subtitle: "Leadership and values-based decision-making",
+                cover: "👔",
+                chapters: [
+                    {
+                        number: 1,
+                        title: "The Weight of Stewardship",
+                        content: "Leadership is not ownership; it is stewardship. Every resource, talent, and individual placed under your authority is a trust from the Creator. When you operate under the illusion of absolute ownership, your decisions become self-serving and short-sighted. True managership requires a sober recognition that you will account for the growth, protection, and direction of what has been entrusted to you. Align your daily operations with high governance standards, ensuring that justice and equity guide your dealings.",
+                        question: "Which asset or relationship in your current business are you treating as an owner rather than a steward, and how will you shift your management style today?"
+                    },
+                    {
+                        number: 2,
+                        title: "The Art of Delegation (Nehemiah's Wall)",
+                        content: "Nehemiah did not build the wall of Jerusalem alone; he structured the work so that every family built the portion directly opposite their own house. Strategic managers do not hoard control; they distribute responsibility based on proximity and capacity. By placing ownership closest to those who bear the consequences of the work, you build buy-in and speed. Guard against the pride of micromanagement, which stifles your team and limits scaling.",
+                        question: "What critical task are you currently hoarding, and who is the most strategic team member to build that section of your wall?"
+                    },
+                    {
+                        number: 3,
+                        title: "The Boundary of Integrity",
+                        content: "In business, opportunity often presents itself disguised as a shortcut. Joseph refused Potiphar’s wife not just out of moral virtue, but out of strategic integrity—he knew that compromising his core principles would destroy his long-term authority. Your business boundaries must be absolute and non-negotiable. Compromise in secret eventually manifests in public ruin. Establish clear ethical baselines that govern your contracts, negotiations, and partnerships.",
+                        question: "Is there a current negotiation or operational shortcut where you are tempted to compromise your standards? What boundary must you reinforce?"
+                    },
+                    {
+                        number: 4,
+                        title: "Resolving Internal Conflict",
+                        content: "Disagreement is inevitable in high-performance teams, but unresolved friction acts as sand in the gears of execution. Abraham solved the conflict between his herdsmen and Lot's by offering a generous, decisive division of land. He prioritized long-term peace over short-term gain. As a conscious manager, address conflict immediately and transparently. Avoid passive-aggressive avoidance; instead, seek resolutions that preserve relationship equity and operational momentum.",
+                        question: "What silent friction or team conflict are you currently avoiding, and what generous or decisive conversation will you initiate to resolve it?"
+                    },
+                    {
+                        number: 5,
+                        title: "Leading Through Crisis",
+                        content: "When the storm hit the ship carrying Paul to Rome, the seasoned sailors panicked, but Paul took authority because he possessed clarity of purpose. In times of market volatility or operational failure, leaders must project stability and decisive action. Your team does not need optimism; they need truth, structure, and a clear path forward. Speak with authority, establish immediate priorities, and maintain daily accountability.",
+                        question: "In your current business challenge, what is the single source of panic, and what clear, stabilizing directive will you issue to your team?"
+                    },
+                    {
+                        number: 6,
+                        title: "The Pitfall of Flattery",
+                        content: "King Herod accepted the praise of the crowd who called his voice 'the voice of a god,' and it led to his immediate downfall. Leaders who surround themselves with yes-men insulate themselves from reality. Cultivate advisors who speak difficult truths. A manager who fears rebuke is destined for blind spots that competitors will exploit. Actively seek out dissenting data and critical feedback.",
+                        question: "Who in your circle has the authority to tell you that you are wrong, and when was the last time you acted on their correction?"
+                    },
+                    {
+                        number: 7,
+                        title: "The Rhythm of Renewal",
+                        content: "Even the Creator rested on the seventh day, establishing a pattern of strategic pause. A manager who works in a constant state of emergency is an inefficient manager. Exhaustion breeds poor decision-making, emotional instability, and burnout. Design deliberate margins into your schedule to reflect, recalibrate, and recharge. Solitude is where strategic foresight is born.",
+                        question: "How will you structure your next 24-hour block of strategic rest to step away from operational fire-fighting?"
+                    },
+                    {
+                        number: 8,
+                        title: "The Standard of Justice",
+                        content: "Proverbial wisdom states that a false balance is an abomination to the Lord, but a just weight is His delight. In modern management, this translates to fair compensation, transparent metrics, and honoring commitments. When you underpay talent or default on vendors, you invite operational decay. Align your financial structures with absolute fairness to build an unshakeable reputation.",
+                        question: "Review your agreements with employees or vendors. Is there any area where the scales are unbalanced, and how will you correct it?"
+                    },
+                    {
+                        number: 9,
+                        title: "Generational Handover",
+                        content: "Moses mentored Joshua, and David prepared the blueprints and materials for Solomon to build the temple. True leadership legacy is measured by the strength of your successor. Begin building succession plans long before you intend to step away. Document your processes, codify your values, and systematically empower the next tier of leaders.",
+                        question: "If you were incapacitated for six months, which parts of your operation would fail, and how will you begin training a deputy to cover them?"
+                    },
+                    {
+                        number: 10,
+                        title: "The Ultimate Account",
+                        content: "Every leader operates under a higher authority. The talents entrusted to the servants were audited upon the master's return. Live and manage with the conscious awareness of this audit. Your metrics must extend beyond quarterly profits to include ethical impact, team development, and community stewardship. Maintain a clean ledger.",
+                        question: "If your leadership ledger were audited today by the ultimate authority, what area would require immediate repentance or restructuring?"
+                    }
+                ]
+            },
+            home_architecture: {
+                id: "home_architecture",
+                title: "Home Architecture",
+                subtitle: "Building solid family foundations",
+                cover: "🏠",
+                chapters: [
+                    {
+                        number: 1,
+                        title: "The Blueprint of Covenant",
+                        content: "A home is not built on temporary emotions but on a binding covenant. Modern culture views commitment as conditional, but biblical family architecture stands on unconditional vows. When the storms of financial stress or sickness hit, a covenant-based home remains secure because the exit doors are welded shut. Treat your marriage and family relationships as permanent investments, prioritizing their health above external career achievements.",
+                        question: "In what practical way can you demonstrate covenant-level commitment to your spouse or children this week, especially amid work pressure?"
+                    },
+                    {
+                        number: 2,
+                        title: "The Foundation of Honor",
+                        content: "Honor your father and your mother is the first commandment with a promise of longevity. Honor is the currency of the home. When respect between spouses and generations decays, the structural integrity of the household is compromised. Speak words of affirmation, listen actively to family members, and establish house rules that outlaw sarcasm and disrespect.",
+                        question: "What word pattern or communication habit in your home is undermining honor, and how will you model a higher standard?"
+                    },
+                    {
+                        number: 3,
+                        title: "The Shield of Protection",
+                        content: "Job daily offered sacrifices for his children, active in spiritual and emotional shielding. As the architect of your home, you must guard the gates. Be vigilant about what media, relationships, and values enter your house. Protect your family from the digital toxins of comparison and isolation. Create physical and digital spaces where connection is prioritized.",
+                        question: "What toxic influence has breached the gates of your household recently, and what boundary will you set to remove it?"
+                    },
+                    {
+                        number: 4,
+                        title: "The Investment of Time",
+                        content: "Deuteronomy instructs parents to teach their children when they sit in the house, walk by the way, lie down, and rise up. Wisdom is caught, not just taught, through proximity. A successful career cannot compensate for a neglected home. Prioritize focused, undistracted time with your family. Put away devices and engage in meaningful dialogues.",
+                        question: "Review your calendar. How many hours of undistracted, face-to-face time did you give your family this week? How will you increase this?"
+                    },
+                    {
+                        number: 5,
+                        title: "The Standard of Discipline",
+                        content: "Proverbial wisdom teaches that discipline delivered in love drives out foolishness. Discipline is not anger-driven punishment; it is boundary-setting instruction. When you fail to discipline, you raise adults who struggle with self-control and authority. Set clear expectations, execute consistent consequences, and always restore the relationship with affection and dialogue.",
+                        question: "Where have you been overly permissive or inconsistently strict with family boundaries, and how will you restore balanced discipline?"
+                    },
+                    {
+                        number: 6,
+                        title: "Financial Harmony",
+                        content: "A house divided against itself cannot stand, and financial tension is a primary cause of domestic collapse. Align your financial vision with your spouse. Eliminate secret accounts and hidden debts. Create a collaborative budget that honors obligations, saves for the future, and allocates resources for family joy. Money is a tool to serve the family, not a source of division.",
+                        question: "What financial topic or decision is currently causing friction in your marriage, and when will you sit down to build a unified plan?"
+                    },
+                    {
+                        number: 7,
+                        title: "The Altar of Devotion",
+                        content: "Abraham built altars wherever he pitched his tent, anchoring his family in worship and prayer. The spiritual temperature of the home is set by its leaders. Do not outsource the spiritual development of your children to the church or school. Initiate family prayer, read scripture together, and discuss faith in everyday situations.",
+                        question: "How can you establish a simple, consistent weekly rhythm of family devotion that fits your household's current schedule?"
+                    },
+                    {
+                        number: 8,
+                        title: "The Legacy of Blessing",
+                        content: "Isaac and Jacob understood the power of spoken blessing over their sons. Your words have the power to construct or demolish your family's self-worth. Speak words of destiny, character validation, and encouragement over your household. Let your children hear you praise their effort and character, not just their achievements.",
+                        question: "What specific blessing of character and purpose will you speak over a family member today?"
+                    },
+                    {
+                        number: 9,
+                        title: "The Safe Harbor",
+                        content: "The world is a hostile environment of competition and pressure. Your home must be a sanctuary—a place of safety, grace, and immediate forgiveness. When a family member fails, they should run toward the home, not away from it. Establish an atmosphere where mistakes can be confessed without fear of condemnation.",
+                        question: "Does your family see you as a source of safety when they fail, or as a source of judgment? What needs to change in your reaction to their mistakes?"
+                    },
+                    {
+                        number: 10,
+                        title: "Generational Vision",
+                        content: "A good man leaves an inheritance to his children's children. This inheritance is more than wealth; it is character, wisdom, and custom. Think beyond your immediate generation. What family values and faith traditions are you cultivating today that will survive fifty years from now? Write them down and live them out.",
+                        question: "What is the primary value you want your grandchildren to associate with your family name, and how are you practicing it today?"
+                    }
+                ]
+            },
+            ancient_wisdom: {
+                id: "ancient_wisdom",
+                title: "Ancient Wisdom in Practice",
+                subtitle: "Proverbial analysis applied to current business strategy",
+                cover: "👑",
+                chapters: [
+                    {
+                        number: 1,
+                        title: "The Law of Diligence",
+                        content: "Do you see a man skilled in his work? He will stand before kings. Diligence is the baseline of economic advancement. In an age of hacks and shortcuts, mastery of craft remains the ultimate competitive advantage. Do not chase speculative gains at the expense of solid competence. Dedicate yourself to continuous improvement, operational execution, and exceptional product quality.",
+                        question: "What area of your professional skill set or product delivery has become lazy, and how will you restore mastery?"
+                    },
+                    {
+                        number: 2,
+                        title: "The Multiplicity of Counsel",
+                        content: "Without counsel, plans fail, but with many advisers, they succeed. Solomon, the wisest king, utilized an extensive council of elders. In strategic business planning, operating in isolation is a liability. Assemble an advisory board of veterans, experts, and objective voices who have no financial interest in your business. Run your major decisions through their critical filter.",
+                        question: "What major strategic decision are you currently making alone, and which three advisors will you consult before finalizing it?"
+                    },
+                    {
+                        number: 3,
+                        title: "The Danger of Suretyship",
+                        content: "Do not be one of those who shake hands in agreement, who put up security for debts. Suretyship—or taking on high-risk, uncollateralized leverage—is a shortcut to financial ruin. Protect your balance sheet. Avoid over-leveraging your business or guaranteeing debts that you cannot pay with cash reserves. Cash flow is the oxygen of your enterprise.",
+                        question: "Are you carrying debt or financial guarantees that threaten your survival? What is your deleveraging strategy?"
+                    },
+                    {
+                        number: 4,
+                        title: "The Power of Speech",
+                        content: "Death and life are in the power of the tongue. In leadership and business negotiation, your words shape your environment. A soft answer turns away wrath, while harsh words stir up anger. Cultivate strategic communication. Speak clearly, avoid emotional outbursts in negotiations, and use your words to motivate and align, rather than break down.",
+                        question: "Think of a recent high-stakes conversation. Did your tone de-escalate tension or amplify it? How will you adjust your speech today?"
+                    },
+                    {
+                        number: 5,
+                        title: "The Fallacy of Get-Rich-Quick",
+                        content: "Wealth gained hastily will dwindle, but whoever gathers little by little will increase it. Speculative ventures and high-yield promises are traps for the greedy. Sustainable business is built through compound growth—marginal gains repeated over time. Focus on unit economics, retention, and systematic scaling rather than looking for a magic bullet.",
+                        question: "What speculative project or shortcut is distracting you from your core business model right now?"
+                    },
+                    {
+                        number: 6,
+                        title: "The Boundary of the Landmark",
+                        content: "Do not move an ancient boundary stone or encroach on the fields of the fatherless. Honor contracts, respect intellectual property, and play fair. Taking advantage of the weak or exploiting loopholes might yield short-term profit, but it invites systemic blowback. Build a reputation for integrity that makes clients, partners, and competitors trust you.",
+                        question: "Is there any relationship or transaction where you are pushing boundaries too close to unethical territory?"
+                    },
+                    {
+                        number: 7,
+                        title: "The Trap of Slothfulness",
+                        content: "The sluggard says, 'There is a lion outside! I will be killed in the public square!' Fear is often the root of procrastination. We invent plausible obstacles to justify our inaction. As a strategic operator, separate real risks from lazy excuses. Face the difficult call, launch the imperfect product, and execute.",
+                        question: "What task or decision are you delaying under the guise of 'waiting for the right time' or 'evaluating risks'?"
+                    },
+                    {
+                        number: 8,
+                        title: "The Price of Pride",
+                        content: "Pride goes before destruction, and a haughty spirit before a fall. When a business experiences success, it is easy to attribute it entirely to personal genius. This hubris leads to reckless expansion, bloated overheads, and ignoring customer feedback. Keep a humble posture. Study your failures, check your numbers, and listen to the market.",
+                        question: "In what area of your success have you become arrogant, ignoring warnings or customer complaints?"
+                    },
+                    {
+                        number: 9,
+                        title: "The Just Weight",
+                        content: "A just balance and scales are the Lord’s; all the weights in the bag are his work. Transparency in pricing, reporting, and marketing is not just good ethics; it is good business. Hiding fees, exaggerating results, or using deceptive copy destroys customer lifetime value. Build trust by delivering exactly what you promise, with transparent metrics.",
+                        question: "Are your pricing models and marketing claims 100% transparent, or do they contain hidden caveats? How will you align them?"
+                    },
+                    {
+                        number: 10,
+                        title: "The Strategist's Foresight",
+                        content: "The prudent sees danger and hides himself, but the simple go on and suffer for it. Risk management is a fundamental discipline of wisdom. Do not operate in blind optimism. Anticipate market shifts, key person risks, and technological changes. Build cash reserves, diversify revenue, and have crisis playbooks ready.",
+                        question: "What major industry disruption or risk are you currently ignoring, and what is your mitigation plan?"
+                    }
+                ]
+            },
+            strategic_mind: {
+                id: "strategic_mind",
+                title: "Strategic Mind",
+                subtitle: "Emotional shielding and risk anticipation",
+                cover: "🛡️",
+                chapters: [
+                    {
+                        number: 1,
+                        title: "The Armor of Sobriety",
+                        content: "A leader who cannot control their spirit is like a city with broken walls, open to attack. Emotional volatility is a major strategic liability. If a competitor, customer, or employee can trigger you into anger or panic, they control you. Cultivate emotional sobriety. Pause before reacting, analyze situations objectively, and respond from strategy, not emotion.",
+                        question: "What recent event triggered an emotional overreaction in you? How will you shield your mind next time?"
+                    },
+                    {
+                        number: 2,
+                        title: "The Sentinel's Post",
+                        content: "A city sentinel does not sleep; he scans the horizon for anomalies. In your enterprise, you must maintain a state of active awareness. Do not delegate the monitoring of critical indicators like cash flow, client health, or team morale. Spotting trends early allows you to pivot before a crisis occurs.",
+                        question: "What critical business metric or indicator have you stopped monitoring closely, and when will you inspect it?"
+                    },
+                    {
+                        number: 3,
+                        title: "The Filter of Focus",
+                        content: "Nehemiah, when invited to debate his enemies at the plain of Ono, replied: 'I am doing a great work and cannot come down.' Strategic mindedness requires saying no to distractions, even good ones. Protect your time and energy. Say no to meetings without agendas, speculative partnerships, and low-yield projects. Focus on the wall.",
+                        question: "What current 'invitation to Ono' (distraction) is draining your time and pulling you away from your primary goal?"
+                    },
+                    {
+                        number: 4,
+                        title: "The Strategy of the Retreat",
+                        content: "Jesus frequently withdrew to desolate places to pray and reflect. Strategic retreat is not defeat; it is tactical recalibration. When hit by setbacks or exhaustion, do not force decisions. Step back, gain perspective, consult your values, and return with a clear plan. Quietness is where victory is structured.",
+                        question: "How can you schedule a 2-hour strategic retreat this week to step out of the daily noise and review your priorities?"
+                    },
+                    {
+                        number: 5,
+                        title: "The Anticipation of Scarcity",
+                        content: "Joseph stored grain during the seven years of abundance to survive the seven years of famine. Strategic minds prepare for winter during summer. When times are good, do not blow your profits on luxury or expansion. Build a war chest. A business with six months of cash reserves can survive market downturns and buy undervalued assets.",
+                        question: "How many months of operating expenses does your business have in cash reserves? What plan will you implement to build it?"
+                    },
+                    {
+                        number: 6,
+                        title: "The Shield Against Fear",
+                        content: "For God has not given us a spirit of fear, but of power, love, and a sound mind. Fear paralyzes execution and leads to defensive, short-sighted decisions. When facing market shifts or threats, do not run scenarios in panic. Define the worst-case scenario, build a plan to mitigate it, and execute with power and a sound mind.",
+                        question: "What business fear is currently freezing your decision-making, and what is your plan to address it?"
+                    },
+                    {
+                        number: 7,
+                        title: "The Deception of Success",
+                        content: "David’s greatest failures occurred during a season of rest, ease, and victory, not during the trials of Saul’s pursuit. Success breeds complacency. When your business is thriving, you are most vulnerable to competitors, security breaches, and cost leaks. Keep your guard up, audit your processes, and challenge your team to innovate.",
+                        question: "In what area of your business has success made you complacent? What audit will you run this week?"
+                    },
+                    {
+                        number: 8,
+                        title: "The Power of No",
+                        content: "Solomon warned against committing to surety for strangers. Learning to say 'No' is a key defense mechanism. Say no to bad fit clients, high-risk debts, and projects that lie outside your core competence. A disciplined 'No' protects your focus and resource pool.",
+                        question: "What current proposal or client should you say 'No' to in order to preserve your team's focus?"
+                    },
+                    {
+                        number: 9,
+                        title: "The Contingency Plan",
+                        content: "Wisdom builds towers only after calculating the cost to ensure completion. Never launch a venture without a contingency plan. What if your lead developer leaves? What if a key supplier goes bankrupt? What if your primary advertising channel is shut down? Map your single points of failure and create redundant pathways.",
+                        question: "What is the single biggest point of failure in your operation, and what redundancy will you build for it?"
+                    },
+                    {
+                        number: 10,
+                        title: "The Shield of Peace",
+                        content: "And the peace of God, which surpasses all understanding, will guard your hearts and minds. True strategic power lies in maintaining internal peace despite external chaos. When your mind is quiet, you see solutions that others miss. Anchor your mind in faith and values daily, and lead from a position of rest.",
+                        question: "What operational issue is currently robbing you of your peace, and how will you hand it over to focus on strategy?"
+                    }
+                ]
+            }
+        };
+
+        // Tabs Navigation Logic
         const navItems = document.querySelectorAll('#mainNav .nav-item');
         const tabs = document.querySelectorAll('.tab-content');
 
@@ -1012,61 +1257,82 @@
             item.addEventListener('click', () => {
                 const targetTab = item.getAttribute('data-tab');
                 if (!targetTab) return;
-
-                navItems.forEach(nav => nav.classList.remove('active'));
-                item.classList.add('active');
-
-                tabs.forEach(tab => {
-                    tab.classList.remove('active-tab');
-                    if (tab.id === `tab-${targetTab}`) {
-                        tab.classList.add('active-tab');
-                    }
-                });
+                switchTab(targetTab);
             });
         });
 
-        // Configuração das Leituras Diárias (Aba Home)
+        function switchTab(tabId) {
+            navItems.forEach(nav => {
+                if (nav.getAttribute('data-tab') === tabId) {
+                    nav.classList.add('active');
+                } else {
+                    nav.classList.remove('active');
+                }
+            });
+
+            tabs.forEach(tab => {
+                tab.classList.remove('active-tab');
+                if (tab.id === `tab-${tabId}`) {
+                    tab.classList.add('active-tab');
+                }
+            });
+        }
+
+        // Daily Devotional Readings (Home Tab Default Mode)
         const readings = {
             prosperidade: {
-                tag: "💰 Prosperidade", ref: "Malaquias 3:10",
-                text: "Trazei todos os dízimos à casa do tesouro... e provai-me nisto, diz o Senhor dos Exércitos, se eu não vos abrir as janelas do céu.",
-                note: "Prosperidade bíblica começa na fidelidade, não na ansiedade. Onde você tem sido fiel com pouco?"
+                tag: "💰 Prosperity", ref: "Malachi 3:10",
+                text: "Bring the whole tithe into the storehouse... and test me in this, says the Lord of Hosts, if I will not open the windows of heaven.",
+                note: "Biblical prosperity begins with faithfulness, not anxiety. Where have you been faithful with the little?"
             },
             familia: {
-                tag: "🏠 Família", ref: "Josué 24:15",
-                text: "Eu e a minha casa serviremos ao Senhor.",
-                note: "Sua casa segue a direção que você dá a ela. Que decisão você pode tomar hoje para guiar sua família?"
+                tag: "🏠 Family", ref: "Joshua 24:15",
+                text: "But as for me and my household, we will serve the Lord.",
+                note: "Your household follows the direction you set. What decision can you make today to guide your family?"
             },
             fe: {
-                tag: "🙏 Fé", ref: "Salmos 37:5",
-                text: "Entrega o teu caminho ao Senhor; confia nele, e o mais Ele fará.",
-                note: "Hoje o convite é para soltar das próprias mãos aquilo que você vem tentando resolver sozinho."
+                tag: "🙏 Faith", ref: "Psalms 37:5",
+                text: "Commit your way to the Lord; trust in him and he will do this.",
+                note: "Today's invitation is to release from your own hands what you have been trying to solve alone."
             },
             vigiar: {
-                tag: "🛡️ Vigilância", ref: "1 Pedro 5:8",
-                text: "Sede sóbrios, vigiai; o diabo, vosso adversário, anda em derredor, bramando como leão, buscando a quem possa tragar.",
-                note: "Vigilância não é medo, é atenção. Que área da sua vida está sem guarda hoje?"
+                tag: "🛡️ Vigilance", ref: "1 Peter 5:8",
+                text: "Be alert and of sober mind. Your enemy the devil prowls around like a roaring lion looking for someone to devour.",
+                note: "Vigilance is not fear; it is attentiveness. Which area of your life is left unguarded today?"
             },
             oracao: {
-                tag: "🕯️ Oração", ref: "1 Tessalonicenses 5:17",
-                text: "Orai sem cessar.",
-                note: "Oração não é um evento, é uma postura. Que tal transformar o próximo momento de espera em oração?"
+                tag: "🕯️ Prayer", ref: "1 Thessalonians 5:17",
+                text: "Pray continually.",
+                note: "Prayer is not an event; it is a posture. How about turning your next waiting moment into a prayer?"
             }
         };
 
         const catStrip = document.getElementById('catStrip');
         const heroContent = document.getElementById('heroContent');
 
-        // PASSO 1.3: Função central de renderização do assunto ativo
+        // Home Tab Category Setter (Daily Readings)
         function setCategory(catKey) {
+            // Clear book reading state to return to daily devotions
+            localStorage.removeItem('rhema_active_book_' + currentUser);
+
             document.querySelectorAll('.cat-btn').forEach(b => {
                 if (b.dataset.cat === catKey) b.classList.add('active');
                 else b.classList.remove('active');
             });
+
+            // Adjust Hero Header
+            document.getElementById('heroEyebrow').innerHTML = `RECOMMENDED READING <span>TODAY</span>`;
+            document.getElementById('chapterTitle').style.display = 'none';
+            document.getElementById('chapterNav').style.display = 'none';
+
             const r = readings[catKey];
             document.getElementById('verseText').textContent = r.text;
             document.getElementById('verseRef').textContent = r.ref;
             document.getElementById('verseNote').textContent = r.note;
+
+            // Load Daily Chat History
+            loadChatHistory(`rhema_chat_${currentUser}_daily_${catKey}`, `Greetings. Analyzing the active guideline. What practical aspect of this wisdom do you want to structure and focus on now?`);
+            renderLibrary();
         }
 
         catStrip.addEventListener('click', e => {
@@ -1086,14 +1352,12 @@
             }, 200);
         });
 
-        // Chat Interativo (Aba Home)
+        // Chat Variables
         const chatBox = document.getElementById('chatBox');
         const chatInput = document.getElementById('chatInput');
         const sendBtn = document.getElementById('sendBtn');
-
-        let conversation = JSON.parse(localStorage.getItem(`rhema_chat_${currentUser}`)) || [];
-
-
+        let currentChatKey = '';
+        let conversation = [];
 
         function addMsg(text, who) {
             const div = document.createElement('div');
@@ -1103,10 +1367,21 @@
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
-        function renderChatHistory() {
-            conversation.forEach(c => {
-                addMsg(c.text, c.role);
-            });
+        function loadChatHistory(chatKey, initialWelcome) {
+            currentChatKey = chatKey;
+            conversation = JSON.parse(localStorage.getItem(chatKey)) || [];
+            
+            chatBox.innerHTML = '';
+            if (conversation.length === 0) {
+                // Initialize conversation with the welcome question
+                addMsg(initialWelcome, 'bot');
+                conversation.push({ role: 'bot', text: initialWelcome });
+                localStorage.setItem(chatKey, JSON.stringify(conversation));
+            } else {
+                conversation.forEach(c => {
+                    addMsg(c.text, c.role);
+                });
+            }
         }
 
         function sendMessage() {
@@ -1115,11 +1390,11 @@
             addMsg(val, 'user');
 
             conversation.push({ role: 'user', text: val });
-            localStorage.setItem(`rhema_chat_${currentUser}`, JSON.stringify(conversation));
+            localStorage.setItem(currentChatKey, JSON.stringify(conversation));
 
             chatInput.value = '';
 
-            // Exibe indicador de carregamento
+            // Typing Indicator
             const typing = document.createElement('div');
             typing.className = 'msg bot reveal';
             typing.style.opacity = '0.6';
@@ -1127,13 +1402,12 @@
             chatBox.appendChild(typing);
             chatBox.scrollTop = chatBox.scrollHeight;
 
-            // Mapeia o histórico local para o formato exigido pela API (role e content)
+            // Map local messages to API payload format
             const formattedMessages = conversation.map(msg => ({
-                role: msg.role,
+                role: msg.role === 'bot' ? 'assistant' : msg.role,
                 content: msg.text
             }));
 
-            // Executa a chamada real para a Netlify Function local/produção
             fetch('/.netlify/functions/chat', {
                 method: 'POST',
                 headers: {
@@ -1141,7 +1415,7 @@
                 },
                 body: JSON.stringify({ messages: formattedMessages })
             })
-                .then(res => {
+            .then(res => {
                 if (!res.ok) {
                     return res.text().then(txt => {
                         throw new Error(`HTTP ${res.status}: ${txt}`);
@@ -1155,18 +1429,19 @@
                 addMsg(reply, 'bot');
 
                 conversation.push({ role: 'bot', text: reply });
-                localStorage.setItem(`rhema_chat_${currentUser}`, JSON.stringify(conversation));
+                localStorage.setItem(currentChatKey, JSON.stringify(conversation));
             })
             .catch(err => {
                 typing.remove();
-                addMsg(`❌ Erro detalhado: ${err.message}`, 'bot');
+                addMsg(`❌ Detailed error: ${err.message}`, 'bot');
                 console.error(err);
             });
         }
+
         sendBtn.addEventListener('click', sendMessage);
         chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
 
-        // PASSO 1.2: Estruturação e Compilação de Anotações com Persistência
+        // Notes and Summaries Logic
         let notesData = JSON.parse(localStorage.getItem(`rhema_notes_${currentUser}`)) || [];
 
         function renderNotes() {
@@ -1174,7 +1449,7 @@
             list.innerHTML = '';
 
             if (notesData.length === 0) {
-                list.innerHTML = '<p class="empty-note">Nenhum sumário estruturado nesta sessão. Use o botão "Compilar" acima para documentar suas conclusões.</p>';
+                list.innerHTML = '<p class="empty-note">No structured summaries in this session. Use the "Compile" button above to document your conclusions.</p>';
                 return;
             }
 
@@ -1182,42 +1457,278 @@
                 const card = document.createElement('div');
                 card.className = 'note-card';
                 card.innerHTML = `<span class="note-date">${note.date} · ${note.category}</span>
-                <strong>Diretriz de Estudo:</strong> Aplicação focada em <em>${note.topic.slice(0, 60)}</em>.<br>
-                <strong>Conclusão Mapeada:</strong> ${note.conclusion}`;
+                <strong>Guideline/Topic:</strong> ${note.topic}<br>
+                <strong>My Conclusion:</strong> ${note.conclusion}`;
                 list.appendChild(card);
             });
         }
 
         document.getElementById('summaryBtn').addEventListener('click', () => {
-            const activeCat = document.querySelector('.cat-btn.active').textContent.trim();
+            const activeBookId = localStorage.getItem('rhema_active_book_' + currentUser);
+            let categoryText = "";
+            let topicText = "";
+            
+            if (activeBookId && collections[activeBookId]) {
+                const book = collections[activeBookId];
+                const chapNum = parseInt(localStorage.getItem(`rhema_progress_${currentUser}_${activeBookId}`) || "1");
+                const chap = book.chapters[chapNum - 1];
+                categoryText = book.title;
+                topicText = `Chapter ${chapNum}: ${chap.title}`;
+            } else {
+                const activeCatBtn = document.querySelector('.cat-btn.active');
+                categoryText = activeCatBtn ? activeCatBtn.textContent.trim() : "Daily Devotional";
+                const savedCat = localStorage.getItem('rhema_selected_cat') || 'fe';
+                topicText = readings[savedCat] ? readings[savedCat].ref : "Daily Direction";
+            }
+
             const userLines = conversation.filter(c => c.role === 'user').map(c => c.text);
-            const topic = userLines.length ? userLines[userLines.length - 1] : "Alinhamento e execução estratégica de princípios";
+            const topicDetail = userLines.length ? userLines[userLines.length - 1] : "Strategic alignment and execution of principles";
 
             const now = new Date();
-            const timestamp = `${now.toLocaleDateString('pt-BR')} às ${now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`;
+            const timestamp = `${now.toLocaleDateString('en-US')} at ${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
 
             const newNote = {
                 date: timestamp,
-                category: activeCat,
-                topic: topic,
-                conclusion: "O processo exige ação assertiva desvinculada de reações ansiosas, garantindo consistência no gerenciamento pessoal."
+                category: categoryText,
+                topic: topicText,
+                conclusion: topicDetail
             };
 
             notesData.unshift(newNote);
             localStorage.setItem(`rhema_notes_${currentUser}`, JSON.stringify(notesData));
             renderNotes();
+            updateMetrics();
         });
 
+        // ----------------------------------------------------
+        // BOOK STUDY & DYNAMIC LIBRARY FEATURES (STEPS 1-3)
+        // ----------------------------------------------------
+        
+        // Navigation: Select a Book and Open it
+        function selectBook(bookId) {
+            localStorage.setItem('rhema_active_book_' + currentUser, bookId);
+            
+            // If progress isn't set, start at Chapter 1
+            if (!localStorage.getItem(`rhema_progress_${currentUser}_${bookId}`)) {
+                localStorage.setItem(`rhema_progress_${currentUser}_${bookId}`, "1");
+            }
+            
+            switchTab('home');
+            loadActiveChapter();
+        }
+
+        // Load Active Reading Content (Book Chapter or Daily Verse)
+        function loadActiveChapter() {
+            const activeBookId = localStorage.getItem('rhema_active_book_' + currentUser);
+            
+            if (activeBookId && collections[activeBookId]) {
+                const book = collections[activeBookId];
+                const chapterNumber = parseInt(localStorage.getItem(`rhema_progress_${currentUser}_${activeBookId}`) || "1");
+                const chapter = book.chapters[chapterNumber - 1];
+
+                // Deactivate catStrip active classes
+                document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+
+                // Render Content
+                document.getElementById('heroEyebrow').innerHTML = `${book.title} <span>Active Study</span>`;
+                
+                const titleEl = document.getElementById('chapterTitle');
+                titleEl.textContent = `Chapter ${chapter.number}: ${chapter.title}`;
+                titleEl.style.display = 'block';
+
+                document.getElementById('verseText').textContent = chapter.content;
+                document.getElementById('verseRef').textContent = `${book.title} · Chapter ${chapter.number}`;
+                document.getElementById('verseNote').textContent = `Context Mapping Question: ${chapter.question}`;
+
+                // Update Chapter Navigation
+                document.getElementById('chapterNav').style.display = 'block';
+                document.getElementById('chapterProgressText').textContent = `Chapter ${chapter.number} of 10`;
+                
+                const progressPercent = chapter.number * 10;
+                document.getElementById('chapterProgressBar').style.width = `${progressPercent}%`;
+
+                // Handle Buttons State
+                document.getElementById('prevChapterBtn').disabled = (chapter.number === 1);
+                document.getElementById('prevChapterBtn').style.opacity = (chapter.number === 1) ? "0.4" : "1";
+                document.getElementById('nextChapterBtn').disabled = (chapter.number === 10);
+                document.getElementById('nextChapterBtn').style.opacity = (chapter.number === 10) ? "0.4" : "1";
+
+                // Load Chat for this specific book chapter
+                const chatKey = `rhema_chat_${currentUser}_${activeBookId}_chap_${chapter.number}`;
+                const initialWelcome = `Greetings. Let's analyze Chapter ${chapter.number} of "${book.title}".\n\n**${chapter.question}**`;
+                loadChatHistory(chatKey, initialWelcome);
+            } else {
+                // Default back to selected category daily devotions
+                const savedCat = localStorage.getItem('rhema_selected_cat') || 'fe';
+                setCategory(savedCat);
+            }
+            
+            renderLibrary();
+            renderStudies();
+            updateMetrics();
+        }
+
+        // Chapter Navigation Actions
+        document.getElementById('prevChapterBtn').addEventListener('click', () => {
+            const activeBookId = localStorage.getItem('rhema_active_book_' + currentUser);
+            if (!activeBookId) return;
+
+            let chapNum = parseInt(localStorage.getItem(`rhema_progress_${currentUser}_${activeBookId}`) || "1");
+            if (chapNum > 1) {
+                chapNum--;
+                localStorage.setItem(`rhema_progress_${currentUser}_${activeBookId}`, chapNum.toString());
+                
+                heroContent.style.opacity = '0';
+                heroContent.style.transform = 'translateY(8px)';
+                setTimeout(() => {
+                    loadActiveChapter();
+                    heroContent.style.opacity = '1';
+                    heroContent.style.transform = 'translateY(0)';
+                }, 200);
+            }
+        });
+
+        document.getElementById('nextChapterBtn').addEventListener('click', () => {
+            const activeBookId = localStorage.getItem('rhema_active_book_' + currentUser);
+            if (!activeBookId) return;
+
+            let chapNum = parseInt(localStorage.getItem(`rhema_progress_${currentUser}_${activeBookId}`) || "1");
+            if (chapNum < 10) {
+                chapNum++;
+                localStorage.setItem(`rhema_progress_${currentUser}_${activeBookId}`, chapNum.toString());
+
+                heroContent.style.opacity = '0';
+                heroContent.style.transform = 'translateY(8px)';
+                setTimeout(() => {
+                    loadActiveChapter();
+                    heroContent.style.opacity = '1';
+                    heroContent.style.transform = 'translateY(0)';
+                }, 200);
+            }
+        });
+
+        // Render Library tab dynamically
+        function renderLibrary(query = '') {
+            const currentlyReadingContainer = document.getElementById('currentlyReadingContainer');
+            const availableCollectionsList = document.getElementById('availableCollectionsList');
+            
+            const activeBookId = localStorage.getItem('rhema_active_book_' + currentUser);
+            
+            // 1. Render Currently Reading
+            if (activeBookId && collections[activeBookId]) {
+                const book = collections[activeBookId];
+                const chapNum = parseInt(localStorage.getItem(`rhema_progress_${currentUser}_${activeBookId}`) || "1");
+                const progress = chapNum * 10;
+                currentlyReadingContainer.innerHTML = `
+                    <div class="book-card" onclick="selectBook('${book.id}')">
+                        <div class="book-cover">${book.cover}</div>
+                        <div class="book-info">
+                            <div class="book-title">${book.title}</div>
+                            <div class="book-author">Chapter ${chapNum} of 10</div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" style="width: ${progress}%;"></div>
+                            </div>
+                        </div>
+                        <span style="font-size: 11px; font-weight: 700; color: var(--gold)">${progress}%</span>
+                    </div>
+                `;
+            } else {
+                currentlyReadingContainer.innerHTML = `
+                    <div class="book-card" style="border-style: dashed; justify-content: center; text-align: center; color: var(--text-muted);">
+                        <div style="padding: 10px;">
+                            <span style="font-size: 24px; display: block; margin-bottom: 6px;">📖</span>
+                            <div class="book-title" style="font-size: 13px;">No active collection</div>
+                            <p style="font-size: 11px; margin: 4px 0 0 0;">Select a collection below to start reading.</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 2. Render Available Collections (with optional search filter)
+            availableCollectionsList.innerHTML = '';
+            Object.values(collections).forEach(book => {
+                if (query && !book.title.toLowerCase().includes(query) && !book.subtitle.toLowerCase().includes(query)) {
+                    return;
+                }
+                
+                const chapNum = parseInt(localStorage.getItem(`rhema_progress_${currentUser}_${book.id}`) || "0");
+                const progress = chapNum * 10;
+                const progressText = chapNum > 0 ? `Chapter ${chapNum} of 10` : 'Not started';
+
+                availableCollectionsList.innerHTML += `
+                    <div class="book-card" onclick="selectBook('${book.id}')">
+                        <div class="book-cover">${book.cover}</div>
+                        <div class="book-info">
+                            <div class="book-title">${book.title}</div>
+                            <div class="book-author">${book.subtitle} · <small>${progressText}</small></div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" style="width: ${progress}%;"></div>
+                            </div>
+                        </div>
+                        <svg width="16" height="16" fill="var(--text-muted)" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM11.293 8.707a1 1 0 0 0 0-1.414L8.707 4.707a1 1 0 1 0-1.414 1.414L8.586 7H4.5a1 1 0 0 0 0 2h4.086l-1.293 1.293a1 1 0 1 0 1.414 1.414l2.586-2.586z" />
+                        </svg>
+                    </div>
+                `;
+            });
+        }
+
+        // Render Studies tab dynamically
+        function renderStudies() {
+            const tracksList = document.getElementById('tracksList');
+            tracksList.innerHTML = '';
+
+            Object.values(collections).forEach(book => {
+                const chapNum = parseInt(localStorage.getItem(`rhema_progress_${currentUser}_${book.id}`) || "0");
+                const progress = chapNum * 10;
+                const statusText = progress === 100 ? 'Completed' : (progress > 0 ? 'Active' : 'Not Started');
+                const statusColor = progress === 100 ? 'background: rgba(0, 176, 80, 0.1); color: var(--green);' : 'background: rgba(181, 148, 83, 0.1); color: var(--gold);';
+
+                tracksList.innerHTML += `
+                    <div class="track-card">
+                        <div class="track-header">
+                            <div class="track-title">${book.title}</div>
+                            <span class="track-status" style="${statusColor}">${statusText}</span>
+                        </div>
+                        <p style="font-size: 13px; color: var(--text-muted); margin: 0 0 12px 0;">${book.subtitle}</p>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: ${progress}%;"></div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-top: 6px;">
+                            <span>${progress}% complete</span>
+                            <span>Chapter ${chapNum}/10</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Update Statistics Metrics
+        function updateMetrics() {
+            const sessionsCount = notesData.length;
+            document.getElementById('metricSessions').textContent = 14 + sessionsCount;
+
+            const uniqueCats = new Set(notesData.map(n => n.category));
+            document.getElementById('metricThemes').textContent = Math.max(4, uniqueCats.size);
+        }
+
+        // Search Input listener
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('input', e => {
+                renderLibrary(e.target.value.toLowerCase());
+            });
+        }
+
+        // Initial setup
         window.addEventListener('DOMContentLoaded', () => {
             const pfpElement = document.querySelector('.avatar-pfp');
             if (pfpElement) pfpElement.textContent = currentUser.charAt(0).toUpperCase();
 
-            const savedCat = localStorage.getItem('rhema_selected_cat');
-            if (savedCat && readings[savedCat]) {
-                setCategory(savedCat);
-            }
-            renderChatHistory();
-            renderNotes();
+            // Set default daily category if no active book exists
+            const savedCat = localStorage.getItem('rhema_selected_cat') || 'fe';
+            
+            loadActiveChapter();
         });
     </script>
 

@@ -14,47 +14,39 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // System instruction compacta (economia de tokens de entrada)
     const systemInstruction = {
-      parts: [{
-        text: `You are "Pastor Rhema", a strategic biblical mentor for leaders and entrepreneurs. Be corporate, direct, and analytical. Connect every topic to execution, self-control, or practical wisdom (Proverbs, Nehemiah, Joseph). Reply ONLY in English. Max 2-3 short paragraphs. Never break character.`
-      }]
+      role: "system",
+      content: `You are "Pastor Rhema", a strategic biblical mentor for leaders and entrepreneurs. Be corporate, direct, and analytical. Connect every topic to execution, self-control, or practical wisdom (Proverbs, Nehemiah, Joseph). Reply ONLY in English. Max 2-3 short paragraphs. Never break character.`
     };
 
-    // Mapeia o histórico: 'bot' → 'model' (formato exigido pelo Gemini)
-    const contents = messages.map(msg => ({
-      role: msg.role === "bot" ? "model" : "user",
-      parts: [{ text: msg.content || msg.text }]
-    }));
+    const fullPayload = [systemInstruction, ...messages];
 
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${apiKey}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          system_instruction: systemInstruction,
-          contents: contents,
-          generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 350  // Limita resposta para economizar cota
-          }
-        })
-      }
-    );
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: "llama-3.1-8b-instant",
+        messages: fullPayload,
+        temperature: 0.7,
+        max_tokens: 350
+      })
+    });
 
     const data = await response.json();
 
-    if (!response.ok || !data.candidates) {
+    if (!response.ok || !data.choices) {
       return {
         statusCode: 500,
         body: JSON.stringify({
-          error: `Gemini API error: ${JSON.stringify(data.error || data)}`
+          error: `Groq API error: ${JSON.stringify(data.error || data)}`
         })
       };
     }
 
-    const botReply = data.candidates[0].content.parts[0].text;
+    const botReply = data.choices[0].message.content;
 
     return {
       statusCode: 200,

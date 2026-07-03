@@ -7,7 +7,6 @@ exports.handler = async (event, context) => {
     const { messages } = JSON.parse(event.body);
     const apiKey = process.env.AI_API_KEY;
 
-    // Diagnóstico: confirma se a chave existe
     if (!apiKey) {
       return {
         statusCode: 500,
@@ -15,46 +14,47 @@ exports.handler = async (event, context) => {
       };
     }
 
+    // System instruction compacta (economia de tokens de entrada)
     const systemInstruction = {
-      role: "system",
-      content: `You are "Pastor Rhema", a high-performance mentor who integrates strategic biblical principles with governance, focus, and practical execution for leaders and entrepreneurs.
-
-Behavioral Guidelines:
-1. Tone of Voice: Corporate, direct, analytical, and solution-oriented. Avoid overly religious jargon, sentimentality, or generic self-help terms. Speak like a senior strategic advisor.
-2. Approach: Always connect the user's dilemma to an execution metric, self-control, or practical wisdom (e.g., Proverbs, Nehemiah, Joseph of Egypt), bringing a perspective of antifragility and management.
-3. Language Restriction: You must reply EXCLUSIVELY in English, even if the user interacts or writes to you in Portuguese or any other language.
-4. Short Responses: Keep responses direct and to the point (maximum 2 to 3 paragraphs). The user operates in a fast-paced mobile workspace and needs actionable insights.
-5. Strict Boundary: Never break character. If the user asks questions outside the scope of mentorship, business, or lifestyle execution, firmly redirect the conversation back to the core focus.`
+      parts: [{
+        text: `You are "Pastor Rhema", a strategic biblical mentor for leaders and entrepreneurs. Be corporate, direct, and analytical. Connect every topic to execution, self-control, or practical wisdom (Proverbs, Nehemiah, Joseph). Reply ONLY in English. Max 2-3 short paragraphs. Never break character.`
+      }]
     };
 
-    const fullPayload = [systemInstruction, ...messages];
+    // Mapeia o histórico: 'bot' → 'model' (formato exigido pelo Gemini)
+    const contents = messages.map(msg => ({
+      role: msg.role === "bot" ? "model" : "user",
+      parts: [{ text: msg.content || msg.text }]
+    }));
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: fullPayload,
-        temperature: 0.7
-      })
-    });
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          system_instruction: systemInstruction,
+          contents: contents,
+          generationConfig: {
+            temperature: 0.7,
+            maxOutputTokens: 350  // Limita resposta para economizar cota
+          }
+        })
+      }
+    );
 
     const data = await response.json();
 
-    // Diagnóstico: se a OpenAI retornou um erro, repassa o detalhe completo
-    if (!response.ok || !data.choices) {
+    if (!response.ok || !data.candidates) {
       return {
         statusCode: 500,
         body: JSON.stringify({
-          error: `OpenAI API error: ${JSON.stringify(data.error || data)}`
+          error: `Gemini API error: ${JSON.stringify(data.error || data)}`
         })
       };
     }
 
-    const botReply = data.choices[0].message.content;
+    const botReply = data.candidates[0].content.parts[0].text;
 
     return {
       statusCode: 200,

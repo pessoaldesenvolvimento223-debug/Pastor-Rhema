@@ -5,7 +5,15 @@ exports.handler = async (event, context) => {
 
   try {
     const { messages } = JSON.parse(event.body);
-    const apiKey = process.env.AI_API_KEY; 
+    const apiKey = process.env.AI_API_KEY;
+
+    // Diagnóstico: confirma se a chave existe
+    if (!apiKey) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: "AI_API_KEY not found in environment variables." })
+      };
+    }
 
     const systemInstruction = {
       role: "system",
@@ -35,6 +43,17 @@ Behavioral Guidelines:
     });
 
     const data = await response.json();
+
+    // Diagnóstico: se a OpenAI retornou um erro, repassa o detalhe completo
+    if (!response.ok || !data.choices) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({
+          error: `OpenAI API error: ${JSON.stringify(data.error || data)}`
+        })
+      };
+    }
+
     const botReply = data.choices[0].message.content;
 
     return {

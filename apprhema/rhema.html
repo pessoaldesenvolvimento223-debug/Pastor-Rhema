@@ -1127,7 +1127,7 @@
             })
             .catch(err => {
                 typing.remove();
-                addMsg("Connection error. Please try again in a few moments.", 'bot');
+                addMsg(`Erro de Conexão detalhado: ${err.message}`, 'bot');
                 console.error(err);
             });
         }

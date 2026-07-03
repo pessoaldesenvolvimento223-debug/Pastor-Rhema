@@ -580,7 +580,7 @@
             <div class="amt-sub">one-time payment</div>
           </div>
         </div>
-        <a href="#" class="btn-green">Get lifetime access now — US$ 39</a>
+        <a href="https://www.checkout-ds24.com/product/657301" id="checkoutBtn" class="btn-green" target="_blank" rel="noopener">Get lifetime access now — US$ 39</a>
         <div class="guarantee">🔒 Secure checkout · ✅ 7-day guarantee · No renewals</div>
       </div>
 
@@ -697,6 +697,27 @@ function toggleHelpful(btn){
   var active = btn.classList.toggle('active');
   countEl.textContent = active ? val + 1 : val - 1;
 }
+
+// UTM passthrough — repassa os parâmetros UTM da página para o link de checkout
+(function(){
+  var utmKeys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','utm_id','fbclid','gclid','src'];
+  var pageParams = new URLSearchParams(window.location.search);
+  var checkoutBtn = document.getElementById('checkoutBtn');
+  if(!checkoutBtn) return;
+
+  var utmParams = new URLSearchParams();
+  utmKeys.forEach(function(key){
+    if(pageParams.has(key)){
+      utmParams.set(key, pageParams.get(key));
+    }
+  });
+
+  var utmString = utmParams.toString();
+  if(utmString){
+    var base = checkoutBtn.href.split('?')[0];
+    checkoutBtn.href = base + '?' + utmString;
+  }
+})();
 </script>
 </body>
 </html>
